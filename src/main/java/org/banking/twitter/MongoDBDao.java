@@ -1,15 +1,15 @@
+package org.banking.twitter;
 import java.net.UnknownHostException;
 
-import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 import com.mongodb.util.JSON;
 
-public class Dao {
+public class MongoDBDao {
 
-	public static void saveTweet(long id, String json) {
+	public static void saveTweet(String id, String json) {
 		Mongo mongo;
 		try {
 			mongo = new Mongo("localhost", 27017);
