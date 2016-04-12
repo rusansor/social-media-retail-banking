@@ -1,9 +1,13 @@
-package org.banking.twitter;
+package org.banking.twitter.fetcher;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class Exporter {
+import org.banking.twitter.configuration.Configuration;
+import org.banking.twitter.dao.MongoDBDao;
+import org.banking.twitter.model.Tweet;
+
+public class TweetsFetcher {
 
 	
 	private static Configuration configuration = new Configuration();
@@ -11,7 +15,7 @@ public class Exporter {
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 	
 
-	public static void main(String[] args) {
+	public static void fetch() {
 
 		// else if (parameterSplit[0].equals("querysearch")) {
 		// criteria.setQuerySearch(parameterSplit[1]);
@@ -27,7 +31,7 @@ public class Exporter {
 			criteria.setUsername(bank);
 			criteria.setSince(since);
 			criteria.setUntil(until);
-			System.out.println("Searching... \n");
+			System.out.println(String.format("Searching... for bank[%s]\n",bank));
 			for (Tweet tweet : TweetManager.getTweets(criteria)) {
 				StringBuilder stringBuilder = new StringBuilder();
 				stringBuilder.append("{");
@@ -56,7 +60,5 @@ public class Exporter {
 			}
 		}
 	}
-	
-	
 
 }

@@ -1,4 +1,4 @@
-package org.banking.twitter;
+package org.banking.twitter.fetcher;
 
 /**
  * A class to guide how the tweets must be searched on {@link TweetManager}

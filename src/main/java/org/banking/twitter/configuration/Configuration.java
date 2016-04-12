@@ -1,4 +1,4 @@
-package org.banking.twitter;
+package org.banking.twitter.configuration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

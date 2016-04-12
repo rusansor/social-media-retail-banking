@@ -1,4 +1,4 @@
-package org.banking.twitter;
+package org.banking.twitter.model;
 
 import java.util.Date;
 

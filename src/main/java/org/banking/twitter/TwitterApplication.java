@@ -1,3 +1,4 @@
+package org.banking.twitter;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,8 +10,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
-
-import org.banking.twitter.MongoDBDao;
 
 import twitter4j.Query;
 import twitter4j.QueryResult;
@@ -25,6 +24,7 @@ import twitter4j.conf.ConfigurationBuilder;
 /**
  * Twitter application using Twitter4J
  */
+@Deprecated
 public class TwitterApplication {
 	private final Logger logger = Logger.getLogger(TwitterApplication.class.getName());
 

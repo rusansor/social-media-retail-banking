@@ -1,4 +1,4 @@
-package org.banking.twitter;
+package org.banking.twitter.fetcher;
 
 
 import org.apache.http.HttpEntity;
@@ -6,6 +6,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.banking.twitter.model.Tweet;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
