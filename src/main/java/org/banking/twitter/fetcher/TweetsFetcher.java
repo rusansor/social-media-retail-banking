@@ -55,8 +55,8 @@ public class TweetsFetcher {
 				stringBuilder.append(",");
 				stringBuilder.append(String.format("\"permlink\": \"%s\"", tweet.getPermalink()));
 				stringBuilder.append("}");
-
-				MongoDBDao.saveTweet(tweet.getId(), stringBuilder.toString());
+				MongoDBDao mongoDBDao = new MongoDBDao();
+				mongoDBDao.saveTweet(tweet.getId(), stringBuilder.toString());
 			}
 		}
 	}

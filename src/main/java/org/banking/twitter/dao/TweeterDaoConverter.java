@@ -2,6 +2,7 @@ package org.banking.twitter.dao;
 
 import org.banking.twitter.model.Tweet;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
 public class TweeterDaoConverter {
@@ -16,8 +17,12 @@ public class TweeterDaoConverter {
 	}
 
 	public DBObject convert(Tweet tweet) {
-		// TODO
-		return null;
+		DBObject dbObject = new BasicDBObject();
+		dbObject.put("_id", tweet.getId());
+		DBObject metadata = new BasicDBObject();
+		metadata.put("categoryDefinition", tweet.getMetadata().getCategoryDefinition().toString());
+		dbObject.put("metadata", metadata);
+		return dbObject;
 	}
 
 }

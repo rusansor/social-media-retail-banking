@@ -31,6 +31,8 @@ public class Tweet {
 
 	private String lang;
 	
+	private Metadata metadata;
+	
 	public Tweet() {
 	}
 
@@ -121,5 +123,13 @@ public class Tweet {
 
 	public String getLang() {
 		return lang;
+	}
+	
+	public void setMetadata(Metadata metadata) {
+		this.metadata = metadata;
+	}
+	
+	public Metadata getMetadata() {
+		return metadata;
 	}
 }
