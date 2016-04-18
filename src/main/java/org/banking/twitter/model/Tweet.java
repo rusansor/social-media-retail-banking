@@ -2,37 +2,42 @@ package org.banking.twitter.model;
 
 import java.util.Date;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 /**
  * Model class to helps users getting info about an specific tweet
  * 
  * @author Jefferson
  */
+@Document(collection = "tweets")
 public class Tweet {
-	
+
+	@Id
 	private String id;
-	
+
 	private String permalink;
-	
+
 	private String username;
-	
+
 	private String text;
-	
+
 	private Date date;
-	
+
 	private int retweets;
 
 	private int favorites;
-	
+
 	private String mentions;
-	
+
 	private String hashtags;
-	
+
 	private String geo;
 
 	private String lang;
-	
+
 	private Metadata metadata;
-	
+
 	public Tweet() {
 	}
 
@@ -61,7 +66,7 @@ public class Tweet {
 	}
 
 	public String getText() {
-		
+
 		return text.replace("\"", "\\\"");
 	}
 
@@ -92,7 +97,7 @@ public class Tweet {
 	public void setFavorites(int favorites) {
 		this.favorites = favorites;
 	}
-	
+
 	public String getMentions() {
 		return mentions;
 	}
@@ -100,7 +105,7 @@ public class Tweet {
 	public void setMentions(String mentions) {
 		this.mentions = mentions;
 	}
-	
+
 	public String getHashtags() {
 		return hashtags;
 	}
@@ -124,11 +129,11 @@ public class Tweet {
 	public String getLang() {
 		return lang;
 	}
-	
+
 	public void setMetadata(Metadata metadata) {
 		this.metadata = metadata;
 	}
-	
+
 	public Metadata getMetadata() {
 		return metadata;
 	}
