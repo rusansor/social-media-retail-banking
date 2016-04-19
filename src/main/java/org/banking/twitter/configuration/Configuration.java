@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class Configuration {
-	
+
 	public List<String> getBanks() {
 		InputStream inputStream = null;
 		try {
@@ -24,7 +24,7 @@ public class Configuration {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				inputStream.close();
 			} catch (IOException e) {

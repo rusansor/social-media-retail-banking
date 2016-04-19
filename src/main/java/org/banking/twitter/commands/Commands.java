@@ -3,7 +3,6 @@ package org.banking.twitter.commands;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import org.banking.twitter.dao.MongoDBDao;
 import org.banking.twitter.dao.TweetRepository;
 import org.banking.twitter.fetcher.TweetsFetcher;
 import org.banking.twitter.model.CategoryDefinition;
@@ -31,9 +30,6 @@ public class Commands implements CommandMarker {
 	@Autowired
 	private TweetsFetcher tweetsFetcher;
 
-	@Autowired
-	private MongoDBDao mongoDBDao;
-
 	@CliCommand(value = "fetch-and-store-tweets", help = "Fetch and store tweets")
 	public String fetchAandStoreTweets() {
 		tweetsFetcher.fetch();
@@ -44,13 +40,6 @@ public class Commands implements CommandMarker {
 	public String resetAllTweets() {
 		tweetRepository.deleteAll();
 		return "Deleted all tweets";
-	}
-
-	@CliCommand(value = "fetch-tweets-without-metadata", help = "Fetch and store tweets")
-	public String fetchTweetTithoutMetadata() throws JsonGenerationException, JsonMappingException, IOException {
-		Tweet tweetWithoutMetadata = mongoDBDao.getTweetWithoutMetadata("santander_resp");
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(tweetWithoutMetadata);
 	}
 
 	@CliCommand(value = "read-tweet-by-id", help = "Read a Tweet stored in the DB with lookup by Id")
@@ -68,12 +57,12 @@ public class Commands implements CommandMarker {
 			throws JsonGenerationException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		if (tweetId == null) {
-			Tweet tweetWithoutMetadata = mongoDBDao.getTweetWithoutMetadata("santander_resp");
+			Tweet tweetWithoutMetadata = tweetRepository.findByMetadataIsNull();
 			String tweet = mapper.writeValueAsString(tweetWithoutMetadata);
-			System.out.println(tweet);
+			logger.info(tweet);
 			ConsoleReader reader = new ConsoleReader();
 			String readLine = reader.readLine("Enter Category Definition[(A)cquisition, (E)ngagement, (R)etention]: ");
-			System.out.println(readLine);
+			logger.info(readLine);
 			Metadata metadata = new Metadata();
 			if ("a".equals(readLine.toLowerCase())) {
 				metadata.setCategoryDefinition(CategoryDefinition.ACQUISITION);
@@ -84,16 +73,15 @@ public class Commands implements CommandMarker {
 			} else {
 				System.out.println("not matching!!!!!!!!!!!!!!");
 			}
-			mongoDBDao.addMetadata(tweetWithoutMetadata, metadata);
+			tweetWithoutMetadata.setMetadata(metadata);
+			tweetRepository.save(tweetWithoutMetadata);
 			return "saved tweet with metadata";
 		} else {
 			Tweet tweet = tweetRepository.findOne(tweetId);
-			System.out.println(tweet);
 			Metadata metadata = new Metadata();
 			metadata.setCategoryDefinition(CategoryDefinition.ENGAGEMENT);
 			tweet.setMetadata(metadata);
 			tweetRepository.save(tweet);
-			// mongoDBDao.saveTweet(tweet);
 
 			String tweetJson = mapper.writeValueAsString(tweet);
 			return "saved Tweet with content: " + tweetJson;
